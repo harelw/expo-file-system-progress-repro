@@ -10,8 +10,7 @@ Development and release builds therefore behave differently for foreground uploa
 
 ### Minimal reproducible example
 
-<!-- TODO: replace with the published repo URL -->
-https://github.com/<user>/expo-file-system-progress-repro
+https://github.com/harelw/expo-file-system-progress-repro
 
 One screen with two buttons that upload an 8 MB random file to a local server (`npm run server`, which reads the body slowly so iOS reports several progress events), with `sessionType: 'foreground'` or `'background'`. Each `onProgress` call is listed on screen.
 
