@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "expo-file-system-progress-repro",
+    "name": "FS Progress Repro",
     "slug": "expo-file-system-progress-repro",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.example.fsprogressrepro"
     },
     "android": {
       "adaptiveIcon": {
@@ -20,6 +21,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "scheme": "fsprogressrepro"
   }
 }

@@ -1,0 +1,9 @@
+# Release build: the bundle is embedded, so just launch and upload.
+appId: com.example.fsprogressrepro
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "Upload 8 MB .foreground.*"
+    timeout: 30000
+- runFlow: upload-steps.yaml

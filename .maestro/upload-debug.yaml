@@ -1,0 +1,36 @@
+# Debug dev client: open the app from Metro on port 8082, clear first-run prompts,
+# then upload.
+appId: com.example.fsprogressrepro
+---
+- launchApp:
+    clearState: true
+- openLink: "fsprogressrepro://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8082"
+- tapOn:
+    text: "Open"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Toggle element inspector"
+    timeout: 8000
+    optional: true
+- runFlow:
+    when:
+      visible: "Toggle element inspector"
+    commands:
+      - tapOn: "Close"
+      - waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "Upload 8 MB .foreground.*"
+    timeout: 120000
+# The system "Open in …?" prompt can appear after the app has loaded.
+- extendedWaitUntil:
+    visible: "Open"
+    timeout: 5000
+    optional: true
+- tapOn:
+    text: "Open"
+    optional: true
+- runFlow: upload-steps.yaml

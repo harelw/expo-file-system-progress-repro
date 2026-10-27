@@ -1,0 +1,8 @@
+# Run with -e SESSION=foreground or -e SESSION=background.
+appId: com.example.fsprogressrepro
+---
+- tapOn: "Upload 8 MB .${SESSION}.*"
+- extendedWaitUntil:
+    visible: "done .${SESSION}.*"
+    timeout: 120000
+- takeScreenshot: progress-${SESSION}
