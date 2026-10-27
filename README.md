@@ -53,15 +53,33 @@ it with `npx expo run:ios --configuration Debug --port 8082`, or edit the URL.)
 
 ## Results
 
-iOS 26.2 simulator, Xcode 26.4, expo 58.0.17 / expo-modules-core 58.0.24 /
-expo-file-system 58.0.10 / expo-dev-client 58.0.14, react-native 0.88.0:
+iOS 26.2 simulator, Xcode 26.4, react-native 0.88.0. Counts vary run to run;
+the types and the pattern don't.
+
+expo 58.0.20, expo-modules-core 58.0.27, expo-file-system 58.0.12,
+expo-dev-client 58.0.16 (this repo; `expo-doctor` passes):
 
 | Build | Session | `onProgress` calls |
 |---|---|---|
 | Debug (dev client) | foreground | 1: `number` 8388608/8388608 (synthetic only) |
-| Debug (dev client) | background | 12× `bigint` mid-upload, then 1× `number` |
-| Release | foreground | 8× `bigint` mid-upload, then 1× `number` |
-| Release | background | 11× `bigint` mid-upload, then 1× `number` |
+| Debug (dev client) | background | 7× `bigint` mid-upload, then 1× `number` |
+| Release | foreground | 9× `bigint` mid-upload, then 1× `number` |
+| Release | background | 10× `bigint` mid-upload, then 1× `number` |
+
+The same on expo 58.0.17, expo-modules-core 58.0.24, expo-file-system 58.0.10,
+expo-dev-client 58.0.14 (commit `6595603`). Debug foreground: 1 `number`.
+Debug background: 12 `bigint` + 1 `number`. Release foreground: 8 + 1.
+Release background: 11 + 1.
+
+With the network inspector compiled out, a Debug build behaves like Release
+(foreground: 8× `bigint`, then 1× `number`). Set it before a clean prebuild;
+toggling it with an in-place `pod install` left an inconsistent build (a link
+error, or a launch crash in `DevMenuPackagerConnectionHandler.setup()`):
+
+```sh
+EX_DEV_CLIENT_NETWORK_INSPECTOR=false npx expo prebuild --clean --platform ios
+EX_DEV_CLIENT_NETWORK_INSPECTOR=false npx expo run:ios --configuration Debug
+```
 
 Expected: `number` throughout, as typed and as on SDK 57, and native
 progress in development builds too.
