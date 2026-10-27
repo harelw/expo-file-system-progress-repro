@@ -6,7 +6,7 @@ In a development build with the network inspector on (`DEBUG && EX_DEV_CLIENT_NE
 
 The interceptor receives upload progress from its inner session, but the forwarding workaround in `ExpoRequestInterceptorProtocol.urlSession(_:task:didSendBodyData:…)` (added for #28269 / #36715) doesn't reach expo-file-system's session delegate (the `NetworkTaskSessionDispatcher`). So `FileSystemUploadTask.emitProgress` never runs, and `onProgress` only receives the synthetic final event that `UploadTask.uploadAsync()` sends after the upload completes.
 
-Development and release builds therefore behave differently for foreground uploads. Progress UI never moves in development builds, and progress-handling bugs only show up in release. We shipped a release-only crash this way (<!-- TODO: link issue 1 once filed -->), and our UI tests on the dev client couldn't catch it.
+Development and release builds therefore behave differently for foreground uploads. Progress UI never moves in development builds, and progress-handling bugs only show up in release. We shipped a release-only crash this way (#52411), and our UI tests on the dev client couldn't catch it.
 
 ### Minimal reproducible example
 

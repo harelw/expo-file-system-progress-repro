@@ -21,7 +21,7 @@ This shipped to our TestFlight users as a crash on every receipt upload after up
 
 Expected: either expo-file-system emits `Double` (byte counts fit easily in 2^53), or the types and docs say `number | bigint` and the synthetic final event uses the same type as native events.
 
-It shows in Release builds with either `sessionType`, and in development builds with the default `sessionType: 'background'`. In development builds with `sessionType: 'foreground'`, native upload progress doesn't reach JS at all (filed separately: <!-- TODO: link issue 2 once filed -->), so only the synthetic `number` event arrives there.
+It shows in Release builds with either `sessionType`, and in development builds with the default `sessionType: 'background'`. In development builds with `sessionType: 'foreground'`, native upload progress doesn't reach JS at all (filed separately: #52412), so only the synthetic `number` event arrives there.
 
 ### Minimal reproducible example
 
