@@ -7,14 +7,16 @@ Minimal app for two iOS issues with `File.upload()`'s `onProgress`:
    `Int64` event payloads to `bigint`). `UploadTask.uploadAsync()` then sends a
    synthetic final event built from `file.size`, which is a `number`. One upload
    reports both types, and `bytesSent / totalBytes * 100` throws
-   `TypeError: Cannot convert 100 to BigInt`.
+   `TypeError: Cannot convert 100 to BigInt`. Filed as
+   [expo/expo#52411](https://github.com/expo/expo/issues/52411).
 2. **Development builds lose upload progress for the foreground session.** The
    dev client's network inspector (`EX_DEV_CLIENT_NETWORK_INSPECTOR`, on by
    default) adds `ExpoRequestInterceptorProtocol` to `URLSessionConfiguration.default`.
    expo-file-system's foreground session is built from that configuration, and
    native upload progress never reaches its delegate, so `onProgress` only gets
    the synthetic final event. The background session (the default
-   `sessionType`) isn't affected.
+   `sessionType`) isn't affected. Filed as
+   [expo/expo#52412](https://github.com/expo/expo/issues/52412).
 
 The screen has two buttons: upload an 8 MB random file with
 `sessionType: 'foreground'` or `'background'`. It lists every `onProgress`
